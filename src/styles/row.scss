@@ -1,0 +1,56 @@
+.row-header,
+.row-item {
+  display: flex;
+  flex-direction: row;
+  padding: 5px 10px;
+  margin: 5px;
+  gap: 10px;
+}
+
+.row-item {
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: white;
+  border-radius: 5px;
+  border: 0 solid;
+  border-left-width: 0.32rem;
+
+  &__name {
+    flex-grow: 1;
+  }
+
+  &__type,
+  &__status {
+    min-width: 100px;
+  }
+
+  &__site {
+    min-width: 20%;
+  }
+
+  &__button {
+    width: 75px;
+    height: 25px;
+    border-radius: 10px;
+    border: 0px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.row-header {
+  font-size: 14px;
+
+  &__name {
+    padding-left: 5px;
+    flex-grow: 1;
+  }
+
+  &__tag {
+    cursor: pointer;
+    width: fit-content;
+  }
+}
