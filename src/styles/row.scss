@@ -9,11 +9,12 @@
 
   &__name {
     flex-grow: 1;
+    min-width: calc(2 * $elem-width);
   }
 
   &__type,
   &__status {
-    min-width: 90px;
+    min-width: $elem-width;
   }
 }
 
@@ -59,7 +60,7 @@
   }
 
   &__button {
-    min-width: 90px;
+    min-width: $elem-width;
   }
 
   &__site {
