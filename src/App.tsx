@@ -1,8 +1,5 @@
-import './App.css'
 import { Dashboard } from './pages/Dashboard'
 
-const App = () => {
+export const App = () => {
   return <Dashboard />
 }
-
-export default App

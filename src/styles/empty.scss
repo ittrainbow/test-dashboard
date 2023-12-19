@@ -1,0 +1,10 @@
+@import './vars.scss';
+
+.empty {
+  @include flexcol;
+  gap: 20px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

@@ -1,21 +1,20 @@
-import { RowItem } from '../components/Row/RowItem'
-import { RowHeader } from '../components/Row/RowHeader'
-import { useContext, useEffect } from 'react'
-import { Context } from '../context/Context'
+import { RowItem, RowHeader, Search, Empty } from '../components'
+import { useAppContext } from '../context/Context'
+import { useSort } from '../hooks/useSort'
 
-type Props = {}
+export const Dashboard = () => {
+  const { filteredTests } = useAppContext()
 
-export const Dashboard = ({}: Props) => {
-  const { tests } = useContext(Context)
-
-  useEffect(() => console.log(200, tests), [tests])
+  useSort()
 
   return (
-    <div className="dashboard">
+    <div className="container">
+      <div className="header" data-testid="dashboard-page">
+        Dashboard
+      </div>
+      <Search />
       <RowHeader />
-      {tests.map((test) => (
-        <RowItem key={test.name} el={test} />
-      ))}
+      {filteredTests?.length ? filteredTests.map((test) => <RowItem key={test.name} el={test} />) : <Empty />}
     </div>
   )
 }

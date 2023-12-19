@@ -1,20 +1,11 @@
+@import './vars.scss';
+
 .row-header,
 .row-item {
-  display: flex;
-  flex-direction: row;
-  padding: 5px 10px;
-  margin: 5px;
-  gap: 10px;
-}
-
-.row-item {
-  justify-content: center;
+  @include flexrow;
   align-items: center;
-  height: 50px;
-  background-color: white;
-  border-radius: 5px;
-  border: 0 solid;
-  border-left-width: 0.32rem;
+  padding: 5px 10px;
+  margin: 5px 0;
 
   &__name {
     flex-grow: 1;
@@ -22,35 +13,74 @@
 
   &__type,
   &__status {
-    min-width: 100px;
-  }
-
-  &__site {
-    min-width: 20%;
-  }
-
-  &__button {
-    width: 75px;
-    height: 25px;
-    border-radius: 10px;
-    border: 0px;
-
-    &:hover {
-      cursor: pointer;
-    }
+    min-width: 90px;
   }
 }
 
 .row-header {
-  font-size: 14px;
+  gap: $row-gap;
 
   &__name {
     padding-left: 5px;
-    flex-grow: 1;
+  }
+
+  &__site {
+    min-width: $site-width;
   }
 
   &__tag {
     cursor: pointer;
     width: fit-content;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: 0;
+  }
+}
+
+.row-item {
+  height: $height;
+  background-color: white;
+  border-radius: 5px;
+  border: 0 solid;
+  border-left-width: 0.32rem;
+  transition: 0.22s;
+
+  &__data {
+    @include flexrow;
+    gap: $row-gap;
+  }
+
+  &__name {
+    flex-grow: 1;
+  }
+
+  &__button {
+    min-width: 90px;
+  }
+
+  &__site {
+    min-width: calc($site-width - 75px);
+  }
+
+  &:hover {
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  }
+}
+
+.status {
+  &__green {
+    color: $green;
+  }
+
+  &__orange {
+    color: $orange;
+  }
+
+  &__red {
+    color: $red;
   }
 }

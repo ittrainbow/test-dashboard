@@ -1,28 +1,43 @@
-import { createContext, useState, useEffect, SetStateAction } from 'react'
-import initialTests from '../data'
+import { createContext, useState, useContext } from 'react'
 
-type TContext = {
-  tests: any[]
-  setTests: React.Dispatch<SetStateAction<any[]>>
-  updateTests: (newTests: any[]) => void
-}
+import { TContext, TTest } from '../types/types'
 
 export const Context = createContext({} as TContext)
+export const useAppContext = () => useContext(Context)
 
 export const ContextProvider = ({ children }: any) => {
-  const [tests, setTests] = useState<any[]>([])
-  const [nameSort, setNameSort] = useState('')
+  const [tests, setTests] = useState<TTest[]>([])
+  const [sortStyle, setSortStyle] = useState<string>('')
+  const [sortColumn, setSortColumn] = useState<keyof TTest>('name')
+  const [search, setSearch] = useState<string>('')
 
-  useEffect(() => {
-    setTests(initialTests)
-  }, [])
+  const updateSort = (value: keyof TTest) => {
+    if (sortColumn !== value) {
+      setSortColumn(value)
+      return setSortStyle('ASC')
+    }
 
-  const updateTests = (newTests: any[]) => {
-    console.log(100, tests)
-    console.log(101, newTests)
-    console.log(102, tests === newTests)
-    setTests(newTests)
+    sortStyle === '' && setSortStyle('ASC')
+    sortStyle === 'ASC' && setSortStyle('DESC')
+    sortStyle === 'DESC' && setSortStyle('')
   }
 
-  return <Context.Provider value={{ tests, setTests, updateTests }}>{children}</Context.Provider>
+  const filteredTests = tests?.filter((el) => el.name.includes(search))
+
+  return (
+    <Context.Provider
+      value={{
+        tests,
+        filteredTests,
+        setTests,
+        updateSort,
+        sortStyle,
+        sortColumn,
+        search,
+        setSearch
+      }}
+    >
+      {children}
+    </Context.Provider>
+  )
 }
