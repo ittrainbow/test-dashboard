@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import data from '../data/db.json'
 import { Context } from '../context/Context'
@@ -6,13 +6,18 @@ import { TTest } from '../types/types'
 import { statusNums } from '../data/status'
 
 export const useSort = () => {
+  const [initialTests, setInitialTests] = useState<TTest[]>([])
   const { setTests, sortColumn, sortStyle } = useContext(Context)
 
-  const initialTests: TTest[] = data.tests.map((el) => {
-    const get = data.sites.find((site) => site.id === el.siteId)
-    const url = get?.url.replace('https://', '').replace('http://', '').replace('www.', '') || ''
-    return { ...el, url }
-  })
+  useEffect(() => {
+    setInitialTests(
+      data.tests.map((el) => {
+        const get = data.sites.find((site) => site.id === el.siteId)
+        const url = get?.url.replace('https://', '').replace('http://', '').replace('www.', '') || ''
+        return { ...el, url }
+      })
+    )
+  }, [])
 
   useEffect(() => {
     const tests: TTest[] = JSON.parse(JSON.stringify(initialTests))
@@ -26,5 +31,5 @@ export const useSort = () => {
     })
 
     setTests(tests)
-  }, [sortStyle, sortColumn, setTests])
+  }, [sortStyle, sortColumn, setTests, initialTests])
 }
